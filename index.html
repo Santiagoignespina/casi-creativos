@@ -399,6 +399,31 @@
     /* Highlight recommended */
     .price-item.recommended { background: linear-gradient(135deg, rgba(79,70,229,0.06), rgba(124,58,237,0.04)); border: 1px solid rgba(124,58,237,0.06); }
 
+    /* Banner cantidades personalizadas (<10.000) */
+    .custom-amount {
+      margin-top: 16px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(79,70,229,0.06));
+      border: 1px solid var(--border-accent);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 18px; flex-wrap: wrap;
+    }
+    .custom-amount-info { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 220px; }
+    .custom-amount-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .custom-amount-title { font-size: 1rem; font-weight: 800; color: var(--text-1); margin-bottom: 3px; }
+    .custom-amount-desc { font-size: 0.85rem; color: var(--text-2); }
+    .custom-amount-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff; text-decoration: none; border: none; cursor: pointer;
+      font-family: inherit; font-weight: 800; font-size: 0.88rem;
+      padding: 11px 22px; border-radius: 100px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+    }
+    .custom-amount-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--accent-glow); }
+
     /* Responsive: stack progressively on smaller screens */
     @media (max-width: 900px) {
       .price-grid { grid-template-columns: repeat(3, 1fr); }
@@ -533,6 +558,7 @@
     }
     .alias-label { font-size: 0.7rem; color: var(--gold); font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px; }
     .alias-value { font-size: 1rem; font-weight: 900; color: var(--gold-light); letter-spacing: 0.01em; }
+    .alias-holder { font-size: 0.78rem; color: var(--text-2); margin-top: 4px; font-weight: 600; }
     .alias-copy {
       background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
       border-radius: 8px; padding: 6px 14px;
@@ -556,6 +582,7 @@
     }
     .form-inp:focus  { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,58,237,0.15); }
     .form-inp::placeholder { color: var(--text-3); }
+    .form-hint { font-size: 0.74rem; color: var(--text-3); margin-top: 6px; }
 
     /* File upload */
     .file-drop {
@@ -594,7 +621,14 @@
     .modal-success.show { display: block; }
     .success-icon  { font-size: 3.2rem; margin-bottom: 14px; }
     .success-title { font-size: 1.3rem; font-weight: 900; margin-bottom: 8px; }
-    .success-desc  { font-size: 0.875rem; color: var(--text-2); line-height: 1.7; margin-bottom: 20px; }
+    .success-desc  { font-size: 0.875rem; color: var(--text-2); line-height: 1.7; margin-bottom: 16px; }
+    .success-note {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      border-radius: var(--r); padding: 14px 16px; margin-bottom: 18px;
+      font-size: 0.85rem; color: var(--gold-light);
+      display: flex; align-items: center; gap: 10px; text-align: left;
+    }
+    .success-note strong { color: var(--text-1); }
     .success-steps {
       background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.2);
       border-radius: var(--r); padding: 16px 18px; text-align: left; margin-bottom: 22px;
@@ -633,6 +667,8 @@
       .modal  { padding: 26px 18px; }
       .modal-title { font-size: 1.2rem; }
       .form-row { grid-template-columns: 1fr; }
+      .custom-amount { padding: 16px; gap: 12px; }
+      .custom-amount-btn { width: 100%; justify-content: center; }
       .alias-box { flex-direction: column; align-items: stretch; gap: 10px; text-align: center; }
       .alias-copy { width: 100%; padding: 10px; }
       .modal-actions { flex-direction: column; }
@@ -740,7 +776,6 @@
       <!-- Tabla de fichas -->
       <div class="pack-card featured fade-in">
         <h3 class="pack-name">Tabla de fichas</h3>
-        <p class="pack-desc">Comprando menos de 10.000 fichas se cobra al 50%</p>
 
         <div class="price-table">
           <div class="note">Precios por cantidad (ARS)</div>
@@ -781,6 +816,20 @@
               <div class="buy"><button class="btn-pack" onclick="openModal('200.000 fichas', '$50.000')">Comprar</button></div>
             </div>
           </div>
+
+          <!-- Opción para cantidades personalizadas (entre 2.000 y 9.999) -->
+          <div class="custom-amount">
+            <div class="custom-amount-info">
+              <span class="custom-amount-icon" aria-hidden="true">🎰</span>
+              <div>
+                <div class="custom-amount-title">¿Querés menos de 10.000 fichas?</div>
+                <div class="custom-amount-desc">Mínimo 2.000 fichas · $0,50 por ficha (ej: 2.000 = $1.000)</div>
+              </div>
+            </div>
+            <button type="button" class="custom-amount-btn" onclick="openCustomModal()">
+              Comprar cantidad personalizada
+            </button>
+          </div>
         </div>
       </div>
 
@@ -803,9 +852,9 @@
         <p class="trust-feat-desc">Tu transferencia está protegida. Trabajamos con medios de pago verificados y tu información nunca se comparte con terceros.</p>
       </div>
       <div class="trust-feat fade-in">
-        <span class="trust-feat-icon" aria-hidden="true">📦</span>
-        <h3 class="trust-feat-title">Preparamos tu pedido</h3>
-        <p class="trust-feat-desc">Una vez confirmada la compra, recibimos tu pedido y lo preparamos con cuidado antes de entregarlo. Nada queda al azar.</p>
+        <span class="trust-feat-icon" aria-hidden="true">🪙</span>
+        <h3 class="trust-feat-title">Acreditamos tus fichas</h3>
+        <p class="trust-feat-desc">Una vez confirmada la transferencia, acreditamos las fichas en tu sala lo antes posible. Sin demoras ni vueltas.</p>
       </div>
       <div class="trust-feat fade-in">
         <span class="trust-feat-icon" aria-hidden="true">💬</span>
@@ -934,32 +983,20 @@
         <div>
           <p class="alias-label">Transferí al CBU</p>
           <p class="alias-value" id="aliasText">0000003100036581418208</p>
+          <p class="alias-holder">A nombre de Kimberly Julissa Marroquin Licardi</p>
         </div>
         <button type="button" class="alias-copy" id="aliasBtn" onclick="copyAlias()">Copiar CBU</button>
       </div>
 
       <form onsubmit="submitOrder(event)">
-        <div class="form-grp">
-          <label class="form-lbl" for="inp-nombre">Nombre completo</label>
-          <input class="form-inp" id="inp-nombre" type="text" placeholder="Tu nombre" required />
+        <div class="form-grp" id="customQtyGroup" style="display:none;">
+          <label class="form-lbl" for="inp-cantidad">Cantidad de fichas</label>
+          <input class="form-inp" id="inp-cantidad" type="number" min="2000" max="9999" step="100" placeholder="Ej: 2500" oninput="updateCustomPrice()" />
+          <p class="form-hint">Mínimo 2.000 · Máximo 9.999 · $0,50 por ficha</p>
         </div>
         <div class="form-grp">
-          <label class="form-lbl" for="inp-wa">WhatsApp (con código de área)</label>
-          <input class="form-inp" id="inp-wa" type="tel" placeholder="Ej: 11 2345-6789" required />
-        </div>
-        <div class="form-grp">
-          <label class="form-lbl" for="inp-dir">Dirección</label>
-          <input class="form-inp" id="inp-dir" type="text" placeholder="Calle y número" required />
-        </div>
-        <div class="form-row">
-          <div>
-            <label class="form-lbl" for="inp-loc">Localidad</label>
-            <input class="form-inp" id="inp-loc" type="text" placeholder="Localidad" required />
-          </div>
-          <div>
-            <label class="form-lbl" for="inp-cp">Código postal</label>
-            <input class="form-inp" id="inp-cp" type="text" placeholder="Ej: 1234" />
-          </div>
+          <label class="form-lbl" for="inp-nombre">Sala</label>
+          <input class="form-inp" id="inp-nombre" type="text" placeholder="Ej: Victor (se enviará como SalaVictor)" required />
         </div>
         <div class="form-grp">
           <label class="form-lbl">Comprobante de pago</label>
@@ -1038,14 +1075,15 @@
   /* Modal state */
   let selPack = '', selPrice = '';
 
+  let isCustomMode = false;
+
   function openModal(packName, price) {
+    isCustomMode = false;
     selPack = packName; selPrice = price;
     document.getElementById('modalPackTag').textContent = `📦 ${packName} — ${price} ARS`;
+    document.getElementById('customQtyGroup').style.display = 'none';
+    document.getElementById('inp-cantidad').value = '';
     document.getElementById('inp-nombre').value = '';
-    document.getElementById('inp-wa').value = '';
-    document.getElementById('inp-dir').value = '';
-    document.getElementById('inp-loc').value = '';
-    document.getElementById('inp-cp').value = '';
     document.getElementById('inp-file').value = '';
     document.getElementById('fileDisplay').innerHTML = `
       <span class="file-drop-icon" aria-hidden="true">📎</span>
@@ -1056,6 +1094,44 @@
     document.getElementById('modalSuccess').classList.remove('show');
     document.getElementById('modalOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+  }
+
+  function openCustomModal() {
+    isCustomMode = true;
+    selPack = ''; selPrice = '';
+    document.getElementById('modalPackTag').textContent = '🎰 Cantidad personalizada — ingresá cuántas fichas querés';
+    document.getElementById('customQtyGroup').style.display = '';
+    document.getElementById('inp-cantidad').value = '';
+    document.getElementById('inp-nombre').value = '';
+    document.getElementById('inp-file').value = '';
+    document.getElementById('fileDisplay').innerHTML = `
+      <span class="file-drop-icon" aria-hidden="true">📎</span>
+      <p class="file-drop-text">Adjuntá el comprobante de transferencia</p>
+      <p class="file-drop-hint">Imagen o PDF · click para seleccionar</p>`;
+    document.getElementById('fileDrop').style.borderColor = '';
+    document.getElementById('modalForm').style.display = '';
+    document.getElementById('modalSuccess').classList.remove('show');
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function updateCustomPrice() {
+    const qty = parseInt(document.getElementById('inp-cantidad').value, 10) || 0;
+    const tag = document.getElementById('modalPackTag');
+    if (qty < 2000) {
+      tag.textContent = '⚠️ Mínimo 2.000 fichas';
+      selPack = ''; selPrice = '';
+      return;
+    }
+    if (qty > 9999) {
+      tag.textContent = '⚠️ Para 10.000 o más, usá los packs regulares';
+      selPack = ''; selPrice = '';
+      return;
+    }
+    const price = qty / 2;
+    selPack  = `${qty.toLocaleString('es-AR')} fichas (personalizado)`;
+    selPrice = `$${price.toLocaleString('es-AR')}`;
+    tag.textContent = `🎰 ${selPack} — ${selPrice} ARS`;
   }
 
   function closeModal() {
@@ -1092,36 +1168,24 @@
 
   /* FormSubmit envía los pedidos por mail con el comprobante adjunto */
   const ENDPOINT = 'https://formsubmit.co/Juamsebastian7153@gmail.com';
-  const WA_PEDIDOS = '5491124942367';
 
-  function buildWaPedidoUrl() {
-    const nombre = document.getElementById('inp-nombre').value.trim();
-    const wa     = document.getElementById('inp-wa').value.trim();
-    const dir    = document.getElementById('inp-dir').value.trim();
-    const loc    = document.getElementById('inp-loc').value.trim();
-    const cp     = document.getElementById('inp-cp').value.trim();
-    const msg =
-      `🛒 *NUEVO PEDIDO*\n\n` +
-      `📦 *Pack:* ${selPack}\n` +
-      `💰 *Precio:* ${selPrice} ARS\n\n` +
-      `👤 *Nombre:* ${nombre}\n` +
-      `📱 *WhatsApp:* ${wa}\n` +
-      `📍 *Dirección:* ${dir}\n` +
-      `🏙️ *Localidad:* ${loc}` +
-      (cp ? `\n📮 *CP:* ${cp}` : '') +
-      `\n\nYa transferí al CBU. Adjunto el comprobante en este chat.`;
-    return `https://wa.me/${WA_PEDIDOS}?text=${encodeURIComponent(msg)}`;
+  function getSala() {
+    const raw = document.getElementById('inp-nombre').value.trim();
+    return raw ? `Sala${raw}` : '';
   }
 
-  function showSuccess(waUrl) {
+  function showSuccess() {
     document.getElementById('modalForm').style.display = 'none';
     const s = document.getElementById('modalSuccess');
     s.innerHTML = `
       <div class="success-icon">🎉</div>
-      <h2 class="success-title">¡Pedido enviado!</h2>
-      <p class="success-desc">Recibimos tu pedido por mail. Para confirmar más rápido, mandanos también el comprobante por WhatsApp.</p>
-      <a class="btn-primary" style="width:100%;justify-content:center;margin-bottom:10px;" href="${waUrl}" target="_blank" rel="noopener noreferrer">📱 Enviar por WhatsApp</a>
-      <button class="btn-cancel" style="width:100%" onclick="closeModal()">Cerrar</button>`;
+      <h2 class="success-title">¡Compra realizada con éxito!</h2>
+      <p class="success-desc">Recibimos tu pedido junto con el comprobante. En breve acreditamos tus fichas.</p>
+      <div class="success-note">
+        <span aria-hidden="true">🔄</span>
+        <span>Cuando se acrediten tus fichas, <strong>actualizá la página</strong> para que se reflejen.</span>
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center;margin-top:8px;" onclick="closeModal()">Cerrar</button>`;
     s.classList.add('show');
   }
 
@@ -1131,12 +1195,19 @@
     const el = document.createElement('p');
     el.id = 'form-error';
     el.style.cssText = 'color:#f87171;font-size:0.82rem;text-align:center;margin-top:12px;';
-    el.textContent = 'Hubo un error al enviar. Intentá de nuevo o escribinos por WhatsApp.';
+    el.textContent = 'Hubo un error al enviar. Intentá de nuevo en unos segundos.';
     document.querySelector('#modalForm form').appendChild(el);
   }
 
   async function submitOrder(e) {
     e.preventDefault();
+    if (isCustomMode && (!selPack || !selPrice)) {
+      const qty = parseInt(document.getElementById('inp-cantidad').value, 10) || 0;
+      alert(qty < 2000
+        ? 'La cantidad mínima es 2.000 fichas.'
+        : 'Para 10.000 o más fichas, usá los packs regulares (más económicos).');
+      return;
+    }
     const btn = e.target.querySelector('.btn-confirm');
     btn.textContent = 'Enviando...';
     btn.disabled = true;
@@ -1145,23 +1216,16 @@
     fd.append('_subject',  `Nuevo pedido — ${selPack} (${selPrice})`);
     fd.append('_captcha',  'false');
     fd.append('_template', 'table');
-    fd.append('Pack',         selPack);
-    fd.append('Precio',       selPrice);
-    fd.append('Nombre',       document.getElementById('inp-nombre').value.trim());
-    fd.append('WhatsApp',     document.getElementById('inp-wa').value.trim());
-    fd.append('Dirección',    document.getElementById('inp-dir').value.trim());
-    fd.append('Localidad',    document.getElementById('inp-loc').value.trim());
-    fd.append('Código postal', document.getElementById('inp-cp').value.trim());
+    fd.append('Pack',   selPack);
+    fd.append('Precio', selPrice);
+    fd.append('Sala',   getSala());
     const file = document.getElementById('inp-file').files[0];
     if (file) fd.append('comprobante', file);
-
-    const waUrl = buildWaPedidoUrl();
 
     try {
       const res = await fetch(ENDPOINT, { method: 'POST', body: fd });
       if (!res.ok) throw new Error(`status ${res.status}`);
-      window.open(waUrl, '_blank', 'noopener');
-      showSuccess(waUrl);
+      showSuccess();
     } catch (err) {
       console.error('submitOrder:', err);
       btn.textContent = 'Enviar pedido 🚀';
