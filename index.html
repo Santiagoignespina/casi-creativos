@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#06070d" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Casi Creativos" />
+  <meta name="keywords" content="packs de fichas, comprar fichas, fichas online, pago seguro, transferencia, casi creativos, publicidad creativa" />
+
+  <title>Casi Creativos — Packs de Fichas | Compra 100% segura</title>
+  <meta name="description" content="Comprá tu pack de fichas con total seguridad. Pago por transferencia, entrega garantizada y atención por WhatsApp. Packs desde 10.000 hasta 200.000 fichas." />
+
+  <link rel="canonical" href="https://casi-creativos.vercel.app/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_AR" />
+  <meta property="og:site_name" content="Casi Creativos" />
+  <meta property="og:url" content="https://casi-creativos.vercel.app/" />
+  <meta property="og:title" content="Casi Creativos — Packs de Fichas" />
+  <meta property="og:description" content="Elegí tu pack de fichas y recibilo sin complicaciones. Compra 100% segura, entrega garantizada." />
+  <meta property="og:image" content="https://casi-creativos.vercel.app/logo.png" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="1024" />
+  <meta property="og:image:alt" content="Logo Casi Creativos" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Casi Creativos — Packs de Fichas" />
+  <meta name="twitter:description" content="Comprá tu pack de fichas con total seguridad. Entrega garantizada." />
+  <meta name="twitter:image" content="https://casi-creativos.vercel.app/logo.png" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="apple-touch-icon" href="/logo.png" />
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Casi Creativos",
+    "url": "https://casi-creativos.vercel.app/",
+    "logo": "https://casi-creativos.vercel.app/logo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+54-9-2944-23-9107",
+      "contactType": "customer service",
+      "areaServed": "AR",
+      "availableLanguage": ["Spanish"]
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-deep:       #06070d;
+      --bg-mid:        #0c0e1a;
+      --bg-card:       rgba(255,255,255,0.04);
+      --accent:        #7c3aed;
+      --accent-2:      #4f46e5;
+      --accent-light:  #a78bfa;
+      --accent-glow:   rgba(124,58,237,0.25);
+      --gold:          #f59e0b;
+      --gold-light:    #fbbf24;
+      --text-1:        #f8fafc;
+      --text-2:        rgba(248,250,252,0.7);
+      --text-3:        rgba(248,250,252,0.4);
+      --border:        rgba(255,255,255,0.08);
+      --border-accent: rgba(124,58,237,0.4);
+      --green:         #10b981;
+      --green-light:   #34d399;
+      --r:             16px;
+      --r-lg:          24px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-1);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── ANIMATIONS ────────────────────────────────── */
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    @keyframes glow-pulse {
+      0%,100% { opacity: 0.35; }
+      50%      { opacity: 0.75; }
+    }
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes wa-pulse {
+      0%   { transform: scale(1);   opacity: 0.7; }
+      70%  { transform: scale(1.6); opacity: 0;   }
+      100% { transform: scale(1.6); opacity: 0;   }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── NAVBAR ────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100; height: 68px; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(6,7,13,0.5);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .nav.scrolled { border-bottom-color: var(--border); background: rgba(6,7,13,0.92); }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 1.2rem; font-weight: 900; letter-spacing: -0.03em; text-decoration: none;
+      color: var(--text-1);
+    }
+    .nav-logo img { height: 44px; width: auto; display: block; }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff; text-decoration: none; font-weight: 800; font-size: 0.875rem;
+      padding: 10px 22px; border-radius: 100px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--accent-glow); }
+
+    /* ── HERO ──────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 110px 24px 90px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% 0%,  rgba(124,58,237,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 40% at 80% 85%, rgba(79,70,229,0.1)   0%, transparent 60%),
+        var(--bg-deep);
+    }
+    .hero-orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); pointer-events: none;
+      animation: glow-pulse 4s ease-in-out infinite;
+    }
+    .hero-orb-1 { width:420px; height:420px; background:rgba(124,58,237,0.14); top:-110px; left:50%; transform:translateX(-50%); }
+    .hero-orb-2 { width:260px; height:260px; background:rgba(245,158,11,0.07);  bottom:80px; right:-60px; animation-delay:2s; }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1200px; width: 100%;
+      display: grid; grid-template-columns: 1.1fr 1fr;
+      gap: 60px; align-items: center;
+    }
+    .hero-content { max-width: 640px; }
+    .hero-visual {
+      display: flex; align-items: center; justify-content: center;
+      animation: fade-in-up 0.7s 0.2s ease both;
+    }
+    .hero-visual img {
+      width: 100%; max-width: 480px; height: auto;
+      filter: drop-shadow(0 20px 60px rgba(124,58,237,0.35));
+      animation: float 5s ease-in-out infinite;
+    }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+      .hero-content { margin: 0 auto; }
+      .hero-visual { order: -1; }
+      .hero-visual img { max-width: 320px; }
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124,58,237,0.15); border: 1px solid var(--border-accent);
+      color: var(--accent-light); font-size: 0.78rem; font-weight: 800;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 6px 18px; border-radius: 100px; margin-bottom: 30px;
+      animation: fade-in-up 0.6s ease both;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 24px;
+      animation: fade-in-up 0.6s 0.1s ease both;
+    }
+    .hero-title .hl {
+      background: linear-gradient(135deg, var(--accent-light) 0%, var(--gold-light) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--text-2); max-width: 560px; margin: 0 0 44px;
+      animation: fade-in-up 0.6s 0.2s ease both;
+    }
+    .hero-cta-row {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      animation: fade-in-up 0.6s 0.3s ease both;
+    }
+    @media (max-width: 900px) {
+      .hero-sub { margin: 0 auto 44px; }
+      .hero-cta-row { justify-content: center; }
+    }
+
+    /* ── BUTTONS ───────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff; text-decoration: none;
+      font-weight: 800; font-size: 1rem;
+      padding: 16px 32px; border-radius: 100px; border: none; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px var(--accent-glow); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--text-1); text-decoration: none;
+      font-weight: 700; font-size: 1rem;
+      padding: 15px 28px; border-radius: 100px; border: 1px solid var(--border); cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent-light); background: rgba(124,58,237,0.07); }
+
+    /* ── TRUST BAR ─────────────────────────────────── */
+    .trust-bar {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02); padding: 26px 24px;
+    }
+    .trust-bar-inner {
+      max-width: 900px; margin: 0 auto;
+      display: flex; justify-content: center; align-items: center;
+      gap: 44px; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 0.875rem; color: var(--text-2); font-weight: 600;
+    }
+    .trust-item-icon { font-size: 1.3rem; }
+
+    /* ── SECTION BASE ──────────────────────────────── */
+    section { padding: 96px 24px; }
+    .inner  { max-width: 1100px; margin: 0 auto; }
+
+    .section-tag {
+      display: inline-block; font-size: 0.73rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-light);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(1.85rem, 4vw, 2.8rem);
+      font-weight: 900; letter-spacing: -0.03em; margin-bottom: 14px;
+    }
+    .section-sub { color: var(--text-2); font-size: 1.05rem; max-width: 560px; }
+    .section-hdr { margin-bottom: 60px; }
+    .center-hdr  { text-align: center; }
+    .center-hdr .section-sub { margin: 0 auto; }
+
+    /* ── PASOS ─────────────────────────────────────── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 340px));
+      gap: 20px;
+      justify-content: center;
+    }
+    .step-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 32px 24px; text-align: center;
+    }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      font-size: 1.1rem; font-weight: 900; margin: 0 auto 20px;
+    }
+    .step-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; }
+    .step-desc  { font-size: 0.85rem; color: var(--text-2); }
+    .step-alias {
+      display: inline-block; margin-top: 12px;
+      background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3);
+      color: var(--gold-light); font-weight: 900; font-size: 0.9rem;
+      padding: 5px 16px; border-radius: 100px; letter-spacing: 0.01em;
+    }
+
+    /* ── PACKS ─────────────────────────────────────── */
+    .packs-section { background: var(--bg-mid); }
+    .packs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+    }
+    .pack-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 32px 28px;
+      position: relative; display: flex; flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .pack-card:hover {
+      transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.28);
+      border-color: rgba(255,255,255,0.14);
+    }
+    .pack-card.featured { border-color: var(--border-accent); background: rgba(124,58,237,0.07); }
+    .pack-card.featured:hover { box-shadow: 0 20px 60px rgba(124,58,237,0.2); }
+
+    .pack-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--accent), var(--gold));
+      color: #fff; font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 100px; white-space: nowrap;
+    }
+    .pack-emoji {
+      font-size: 2.8rem; margin-bottom: 18px; display: block;
+      animation: float 4s ease-in-out infinite;
+    }
+    .pack-name { font-size: 1.25rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .pack-desc { font-size: 0.875rem; color: var(--text-2); margin-bottom: 22px; }
+
+    .pack-feats { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 9px; }
+    .pack-feats li {
+      display: flex; align-items: flex-start; gap: 9px;
+      font-size: 0.86rem; color: var(--text-2);
+    }
+    .pack-feats li::before { content:'✓'; color: var(--green-light); font-weight: 800; flex-shrink:0; margin-top:1px; }
+
+    .pack-price-area { border-top: 1px solid var(--border); padding-top: 22px; margin-top: auto; }
+    .pack-price-lbl { font-size: 0.72rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .pack-price { font-size: 2rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 20px; }
+    .pack-price sub { font-size: 0.95rem; color: var(--text-3); font-weight: 500; vertical-align: baseline; }
+    .pack-card.featured .pack-price {
+      background: linear-gradient(135deg, var(--accent-light), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .btn-pack {
+      width: 100%; padding: 14px; border-radius: 100px;
+      font-family: inherit; font-weight: 800; font-size: 0.9rem; cursor: pointer; border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pack-card.featured .btn-pack {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff;
+    }
+    .pack-card:not(.featured) .btn-pack {
+      background: rgba(255,255,255,0.07); color: var(--text-1); border: 1px solid var(--border);
+    }
+    .btn-pack:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .pack-card.featured .btn-pack:hover { box-shadow: 0 8px 28px var(--accent-glow); }
+
+    /* Tabla de precios de fichas */
+    .price-table {
+      width: 100%; border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--border); padding: 22px;
+    }
+    .price-table .note {
+      color: var(--text-2); font-size: 0.95rem; margin-bottom: 10px; font-weight:800;
+    }
+    .price-table table { width:100%; border-collapse:separate; border-spacing:0 10px; }
+    .price-table tr { background: transparent; }
+    .price-table td {
+      padding: 14px 18px; vertical-align: middle; background: rgba(255,255,255,0.02);
+      border-radius: 12px;
+    }
+    .price-tier { font-weight:900; color:var(--text-1); }
+    .price-amount { font-weight:900; color:var(--accent-light); text-align:right; }
+    .price-amount .currency { color:var(--text-3); margin-left:8px; font-weight:700; }
+    .price-row { display: table-row; }
+    .price-row .action-col { text-align:right; }
+    .price-row.recommended td { background: linear-gradient(135deg, rgba(79,70,229,0.06), rgba(124,58,237,0.04)); border: 1px solid rgba(124,58,237,0.06); }
+
+    /* Grid horizontal for price items */
+    .price-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 14px; align-items: stretch; margin-top: 10px;
+    }
+    .price-item {
+      background: rgba(255,255,255,0.02); border-radius: 12px; padding: 16px;
+      display: flex; flex-direction: column; justify-content: space-between; min-height:110px;
+      border: 1px solid transparent;
+    }
+    .price-item .tier { font-size: 0.95rem; color: var(--text-2); font-weight:800; margin-bottom:8px; }
+    .price-item .amount { font-size: 1.3rem; font-weight:900; color: var(--accent-light); margin-bottom:8px; }
+    .price-item .currency { color: var(--text-3); font-weight:700; margin-left:8px; }
+    .price-item .buy { justify-self: end; margin-top: 6px; }
+
+    /* Highlight recommended */
+    .price-item.recommended { background: linear-gradient(135deg, rgba(79,70,229,0.06), rgba(124,58,237,0.04)); border: 1px solid rgba(124,58,237,0.06); }
+
+    /* Responsive: stack progressively on smaller screens */
+    @media (max-width: 900px) {
+      .price-grid { grid-template-columns: repeat(3, 1fr); }
+      .price-item { min-height: auto; }
+      .packs-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .price-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 380px) {
+      .price-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── CONFIANZA ─────────────────────────────────── */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+    @media (max-width: 900px) {
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .trust-grid { grid-template-columns: 1fr; }
+    }
+    .trust-feat {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 32px 26px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .trust-feat:hover { border-color: var(--border-accent); transform: translateY(-4px); }
+    .trust-feat-icon  { font-size: 2.2rem; margin-bottom: 16px; display: block; }
+    .trust-feat-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; }
+    .trust-feat-desc  { font-size: 0.875rem; color: var(--text-2); line-height: 1.65; }
+
+    /* ── FAQ ───────────────────────────────────────── */
+    .faq-section { background: var(--bg-mid); }
+    .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    .faq-item {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden; transition: border-color 0.2s;
+    }
+    .faq-item.open { border-color: var(--border-accent); }
+    .faq-q {
+      width: 100%; background: none; border: none; color: var(--text-1);
+      font-family: inherit; font-size: 0.95rem; font-weight: 700;
+      text-align: left; padding: 20px 24px; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .faq-arrow { font-size: 0.65rem; color: var(--text-3); transition: transform 0.3s; flex-shrink: 0; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-item.open .faq-a { max-height: 200px; }
+    .faq-a-inner { padding: 0 24px 20px; font-size: 0.875rem; color: var(--text-2); line-height: 1.7; }
+
+    /* ── CTA FINAL ─────────────────────────────────── */
+    .cta-section {
+      text-align: center;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(124,58,237,0.1) 0%, transparent 70%);
+    }
+    .cta-section .section-title { font-size: clamp(2rem, 4vw, 3.2rem); }
+
+    /* ── FOOTER ────────────────────────────────────── */
+    footer { padding: 40px 24px; border-top: 1px solid var(--border); text-align: center; }
+    .footer-logo {
+      font-size: 1.1rem; font-weight: 900; margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--accent-light), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .footer-copy { font-size: 0.78rem; color: var(--text-3); }
+
+    /* ── WA FLOAT ──────────────────────────────────── */
+    .wa-float { position: fixed; bottom: 26px; right: 26px; z-index: 150; text-decoration: none; }
+    .wa-btn {
+      width: 60px; height: 60px; border-radius: 50%; background: #25d366;
+      display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      position: relative; transition: transform 0.2s;
+    }
+    .wa-btn:hover { transform: scale(1.1); }
+    .wa-btn::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      background: #25d366; animation: wa-pulse 2s ease-out infinite;
+    }
+
+    /* ── MODAL ─────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: #0f1020; border: 1px solid var(--border-accent);
+      border-radius: var(--r-lg); padding: 36px 32px;
+      width: 100%; max-width: 500px; position: relative;
+      max-height: 92vh; overflow-y: auto;
+      transform: translateY(20px) scale(0.97); opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s;
+    }
+    .modal-overlay.open .modal { transform: none; opacity: 1; }
+
+    .modal-close {
+      position: sticky; top: 0; float: right; margin-bottom: -32px;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+      border-radius: 50%; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-2); cursor: pointer; font-size: 0.9rem;
+      transition: background 0.2s; z-index: 1; flex-shrink: 0;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.12); }
+
+    .modal-title { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 5px; }
+    .modal-sub   { font-size: 0.85rem; color: var(--text-2); margin-bottom: 20px; }
+
+    .modal-pack-tag {
+      background: rgba(124,58,237,0.12); border: 1px solid var(--border-accent);
+      border-radius: var(--r); padding: 11px 16px; margin-bottom: 16px;
+      font-size: 0.875rem; color: var(--accent-light); font-weight: 700;
+    }
+
+    /* Alias de pago */
+    .alias-box {
+      background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3);
+      border-radius: var(--r); padding: 14px 16px; margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .alias-label { font-size: 0.7rem; color: var(--gold); font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px; }
+    .alias-value { font-size: 1rem; font-weight: 900; color: var(--gold-light); letter-spacing: 0.01em; }
+    .alias-copy {
+      background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 8px; padding: 6px 14px;
+      color: var(--gold-light); font-family: inherit; font-size: 0.75rem; font-weight: 800;
+      cursor: pointer; flex-shrink: 0; transition: background 0.2s;
+    }
+    .alias-copy:hover { background: rgba(245,158,11,0.28); }
+
+    /* Form */
+    .form-grp { margin-bottom: 14px; }
+    .form-row  { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .form-lbl  {
+      display: block; font-size: 0.74rem; font-weight: 800;
+      color: var(--text-2); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px;
+    }
+    .form-inp {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 15px;
+      color: var(--text-1); font-family: inherit; font-size: 0.95rem; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-inp:focus  { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,58,237,0.15); }
+    .form-inp::placeholder { color: var(--text-3); }
+
+    /* File upload */
+    .file-drop {
+      display: block; position: relative;
+      border: 2px dashed var(--border); border-radius: 12px;
+      padding: 20px 16px; text-align: center; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .file-drop:hover { border-color: var(--accent); background: rgba(124,58,237,0.04); }
+    .file-drop input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .file-drop-icon { font-size: 1.8rem; display: block; margin-bottom: 6px; }
+    .file-drop-text { font-size: 0.82rem; color: var(--text-3); }
+    .file-drop-hint { font-size: 0.74rem; color: var(--text-3); margin-top: 2px; }
+
+    .modal-actions { display: flex; gap: 12px; margin-top: 20px; }
+    .btn-cancel {
+      flex: 1; padding: 13px;
+      background: transparent; border: 1px solid var(--border); border-radius: 100px;
+      color: var(--text-2); font-family: inherit; font-weight: 700; cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .btn-cancel:hover { border-color: rgba(255,255,255,0.2); }
+    .btn-confirm {
+      flex: 2; padding: 13px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: none; border-radius: 100px; color: #fff;
+      font-family: inherit; font-weight: 800; font-size: 0.95rem; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-confirm:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--accent-glow); }
+
+    /* Success state */
+    .modal-success { display: none; text-align: center; padding: 10px 0; }
+    .modal-success.show { display: block; }
+    .success-icon  { font-size: 3.2rem; margin-bottom: 14px; }
+    .success-title { font-size: 1.3rem; font-weight: 900; margin-bottom: 8px; }
+    .success-desc  { font-size: 0.875rem; color: var(--text-2); line-height: 1.7; margin-bottom: 20px; }
+    .success-steps {
+      background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.2);
+      border-radius: var(--r); padding: 16px 18px; text-align: left; margin-bottom: 22px;
+    }
+    .success-step {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.84rem; color: var(--text-2); margin-bottom: 10px;
+    }
+    .success-step:last-child { margin-bottom: 0; }
+    .success-step-num {
+      width: 22px; height: 22px; border-radius: 50%; background: var(--green);
+      color: #fff; font-size: 0.68rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 640px) {
+      section { padding: 64px 18px; }
+      .hero   { padding: 92px 18px 56px; }
+      .nav    { padding: 0 16px; height: 60px; }
+      .nav-logo img { height: 36px; }
+      .nav-cta { padding: 8px 16px; font-size: 0.78rem; }
+      .trust-bar { padding: 20px 18px; }
+      .trust-bar-inner { gap: 16px 22px; }
+      .trust-item { font-size: 0.8rem; }
+      .hero-badge { font-size: 0.68rem; padding: 5px 14px; margin-bottom: 22px; }
+      .hero-sub { margin-bottom: 30px; }
+      .hero-cta-row .btn-primary,
+      .hero-cta-row .btn-ghost { padding: 13px 22px; font-size: 0.92rem; }
+      .section-hdr { margin-bottom: 40px; }
+      .pack-card { padding: 24px 18px; }
+      .price-table { padding: 16px; }
+      .price-item { padding: 14px; }
+      .step-card { padding: 26px 20px; }
+      .trust-feat { padding: 26px 20px; }
+      .modal  { padding: 26px 18px; }
+      .modal-title { font-size: 1.2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .alias-box { flex-direction: column; align-items: stretch; gap: 10px; text-align: center; }
+      .alias-copy { width: 100%; padding: 10px; }
+      .modal-actions { flex-direction: column; }
+      .modal-actions .btn-cancel,
+      .modal-actions .btn-confirm { flex: 1 1 auto; width: 100%; }
+      .wa-float { bottom: 16px; right: 16px; }
+      .wa-btn { width: 54px; height: 54px; }
+      .wa-btn svg { width: 28px; height: 28px; }
+      footer { padding: 28px 18px; }
+    }
+    @media (max-width: 380px) {
+      .hero-visual img { max-width: 240px; }
+      .hero-cta-row { flex-direction: column; width: 100%; }
+      .hero-cta-row .btn-primary,
+      .hero-cta-row .btn-ghost { width: 100%; justify-content: center; }
+      .nav-logo img { height: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a class="nav-logo" href="#"><img src="logo.png" alt="Publicidad Creativa" /></a>
+  <a class="nav-cta" href="#packs">Ver Packs</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span aria-hidden="true">🔒</span>
+        <span>Compra 100% segura y garantizada</span>
+      </div>
+      <h1 class="hero-title">
+        ¡Bienvenido!<br>
+        Elegí el <span class="hl">pack</span> que quieras.
+      </h1>
+      <p class="hero-sub">
+        Cada pack está listo para ser entregado.
+        Tu compra queda registrada y nosotros nos ocupamos del resto.
+      </p>
+      <div class="hero-cta-row">
+        <a class="btn-primary" href="#como-funciona">¿Cómo funciona?</a>
+        <a class="btn-ghost"   href="#packs">🛒 Ver los packs</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="logo.png" alt="Publicidad Creativa" />
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar fade-in">
+  <div class="trust-bar-inner">
+    <div class="trust-item"><span class="trust-item-icon" aria-hidden="true">🔒</span><span>Pago seguro</span></div>
+    <div class="trust-item"><span class="trust-item-icon" aria-hidden="true">⚡</span><span>Entrega rápida</span></div>
+    <div class="trust-item"><span class="trust-item-icon" aria-hidden="true">✅</span><span>Satisfacción garantizada</span></div>
+  </div>
+</div>
+
+<!-- PASOS — va antes de los packs para que el usuario entienda el proceso primero -->
+<section id="como-funciona">
+  <div class="inner">
+    <header class="section-hdr center-hdr fade-in" style="max-width:520px; margin:0 auto 56px;">
+      <span class="section-tag">El proceso</span>
+      <h2 class="section-title">Comprá en 3 pasos</h2>
+      <p class="section-sub">Simple, rápido y sin complicaciones.</p>
+    </header>
+    <div class="steps-grid">
+      <div class="step-card fade-in">
+        <div class="step-num">1</div>
+        <h3 class="step-title">Elegí tu pack</h3>
+        <p class="step-desc">Navegá por los packs disponibles y hacé click en el que más te conviene.</p>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-num">2</div>
+        <h3 class="step-title">Completá el formulario</h3>
+        <p class="step-desc">Ingresá tus datos de entrega y adjuntá el comprobante de pago.</p>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-num">3</div>
+        <h3 class="step-title">Recibís tu pedido</h3>
+        <p class="step-desc">Confirmamos el pago, preparamos tu pack y coordinamos la entrega con vos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKS -->
+<section class="packs-section" id="packs">
+  <div class="inner">
+    <header class="section-hdr center-hdr fade-in">
+      <span class="section-tag">Nuestros packs</span>
+      <h2 class="section-title">Elegí el tuyo</h2>
+      <p class="section-sub">Cada pack incluye todo lo que necesitás. Seleccioná el que mejor se adapta a vos.</p>
+    </header>
+    <div class="packs-grid">
+
+      <!-- Tabla de fichas -->
+      <div class="pack-card featured fade-in">
+        <h3 class="pack-name">Tabla de fichas</h3>
+        <p class="pack-desc">Comprando menos de 10.000 fichas se cobra al 50%</p>
+
+        <div class="price-table">
+          <div class="note">Precios por cantidad (ARS)</div>
+          <div class="price-grid" role="list">
+            <div class="price-item" role="listitem">
+              <div>
+                <div class="tier">✅ 10.000 fichas</div>
+                <div class="amount">$4.000 <span class="currency">ARS</span></div>
+              </div>
+              <div class="buy"><button class="btn-pack" onclick="openModal('10.000 fichas', '$4.000')">Comprar</button></div>
+            </div>
+            <div class="price-item" role="listitem">
+              <div>
+                <div class="tier">✅ 20.000 fichas</div>
+                <div class="amount">$7.500 <span class="currency">ARS</span></div>
+              </div>
+              <div class="buy"><button class="btn-pack" onclick="openModal('20.000 fichas', '$7.500')">Comprar</button></div>
+            </div>
+            <div class="price-item" role="listitem">
+              <div>
+                <div class="tier">✅ 50.000 fichas</div>
+                <div class="amount">$20.000 <span class="currency">ARS</span></div>
+              </div>
+              <div class="buy"><button class="btn-pack" onclick="openModal('50.000 fichas', '$20.000')">Comprar</button></div>
+            </div>
+            <div class="price-item recommended" role="listitem">
+              <div>
+                <div class="tier">✅ 100.000 fichas</div>
+                <div class="amount">$30.000 <span class="currency">ARS</span></div>
+              </div>
+              <div class="buy"><button class="btn-pack" onclick="openModal('100.000 fichas', '$30.000')">Comprar</button></div>
+            </div>
+            <div class="price-item" role="listitem">
+              <div>
+                <div class="tier">✅ 200.000 fichas</div>
+                <div class="amount">$50.000 <span class="currency">ARS</span></div>
+              </div>
+              <div class="buy"><button class="btn-pack" onclick="openModal('200.000 fichas', '$50.000')">Comprar</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONFIANZA -->
+<section id="confianza">
+  <div class="inner">
+    <header class="section-hdr center-hdr fade-in" style="max-width:600px; margin:0 auto 60px;">
+      <span class="section-tag">Por qué elegirnos</span>
+      <h2 class="section-title">Tu tranquilidad es nuestra prioridad</h2>
+      <p class="section-sub">Entendemos que hacer una transferencia requiere confianza. Por eso lo hacemos simple y transparente.</p>
+    </header>
+    <div class="trust-grid">
+      <div class="trust-feat fade-in">
+        <span class="trust-feat-icon" aria-hidden="true">🔐</span>
+        <h3 class="trust-feat-title">Pago 100% seguro</h3>
+        <p class="trust-feat-desc">Tu transferencia está protegida. Trabajamos con medios de pago verificados y tu información nunca se comparte con terceros.</p>
+      </div>
+      <div class="trust-feat fade-in">
+        <span class="trust-feat-icon" aria-hidden="true">📦</span>
+        <h3 class="trust-feat-title">Preparamos tu pedido</h3>
+        <p class="trust-feat-desc">Una vez confirmada la compra, recibimos tu pedido y lo preparamos con cuidado antes de entregarlo. Nada queda al azar.</p>
+      </div>
+      <div class="trust-feat fade-in">
+        <span class="trust-feat-icon" aria-hidden="true">💬</span>
+        <h3 class="trust-feat-title">Siempre disponibles</h3>
+        <p class="trust-feat-desc">Ante cualquier duda, estamos a un mensaje. Respondemos rápido y sin vueltas por WhatsApp.</p>
+      </div>
+      <div class="trust-feat fade-in">
+        <span class="trust-feat-icon" aria-hidden="true">✅</span>
+        <h3 class="trust-feat-title">Satisfacción garantizada</h3>
+        <p class="trust-feat-desc">Si algo no está bien, lo resolvemos. Así de simple. Tu experiencia nos importa más que cualquier otra cosa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="inner">
+    <header class="section-hdr center-hdr fade-in" style="max-width:560px; margin:0 auto 60px;">
+      <span class="section-tag">Preguntas frecuentes</span>
+      <h2 class="section-title">¿Tenés dudas?</h2>
+    </header>
+    <div class="faq-list">
+      <div class="faq-item fade-in">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Es seguro hacer la transferencia?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Sí, totalmente. En cuanto recibimos tu transferencia, confirmamos el pedido de manera inmediata y nos contactamos con vos para coordinar la entrega.</div>
+        </div>
+      </div>
+      <div class="faq-item fade-in">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Cuánto tarda la entrega?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">En cuanto confirmamos tu pago, empezamos a preparar tu pedido. El tiempo de entrega depende de tu localidad y lo coordinamos directamente con vos por WhatsApp.</div>
+        </div>
+      </div>
+      <div class="faq-item fade-in">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Qué pasa si tengo un problema con mi compra?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Escribinos directamente por WhatsApp. Respondemos rápido y siempre buscamos la mejor solución para que estés conforme con tu compra.</div>
+        </div>
+      </div>
+      <div class="faq-item fade-in">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Puedo consultar antes de comprar?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">¡Por supuesto! Contactanos por WhatsApp antes de hacer cualquier compra. Estamos para ayudarte a elegir el pack que mejor se adapta a lo que necesitás.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section fade-in">
+  <div class="inner" style="text-align:center; max-width:620px; margin:0 auto;">
+    <span class="section-tag">¿Listo?</span>
+    <h2 class="section-title">Empezá ahora mismo</h2>
+    <p class="section-sub" style="margin:0 auto 40px;">No esperes más. Elegí tu pack, pagá con total confianza y nosotros nos ocupamos del resto.</p>
+    <a class="btn-primary" href="#packs" style="font-size:1.05rem; padding:18px 42px;">🛒 Ver los packs</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-logo">✦ Casi Creativos</p>
+  <p class="footer-copy">© 2025 Casi Creativos — Todos los derechos reservados.</p>
+</footer>
+
+<!-- WA FLOAT -->
+<a class="wa-float"
+   href="https://wa.me/5492944239107?text=Hola%2C%20quiero%20consultar%20sobre%20los%20packs%20de%20fichas%20%F0%9F%93%A6"
+   target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+  <div class="wa-btn">
+    <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
+      <path fill="#fff" d="M16.001 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.26.6 4.46 1.73 6.4L3.2 28.8l6.55-1.71a12.74 12.74 0 0 0 6.25 1.6h.01c7.07 0 12.8-5.73 12.8-12.8 0-3.42-1.33-6.63-3.75-9.05A12.72 12.72 0 0 0 16.001 3.2zm0 23.36h-.01a10.6 10.6 0 0 1-5.4-1.48l-.39-.23-3.89 1.02 1.04-3.79-.25-.4a10.62 10.62 0 0 1-1.62-5.68c0-5.87 4.78-10.65 10.66-10.65 2.85 0 5.52 1.11 7.53 3.13a10.58 10.58 0 0 1 3.12 7.53c0 5.87-4.78 10.65-10.66 10.65zm5.84-7.97c-.32-.16-1.89-.93-2.18-1.04-.29-.11-.51-.16-.72.16-.21.32-.83 1.04-1.02 1.25-.19.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.74-.99-2.38-.26-.62-.53-.54-.72-.55-.19-.01-.4-.01-.61-.01-.21 0-.56.08-.85.4-.29.32-1.12 1.09-1.12 2.66 0 1.57 1.15 3.09 1.31 3.3.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.83.68.77.24 1.47.21 2.02.13.62-.09 1.89-.77 2.16-1.52.27-.75.27-1.39.19-1.52-.08-.13-.29-.21-.61-.37z"/>
+    </svg>
+  </div>
+</a>
+
+<!-- MODAL CANAL WHATSAPP — bloqueante, solo se cierra al unirse -->
+<div class="modal-overlay" id="channelOverlay">
+  <div class="modal" style="max-width:440px; text-align:center;">
+    <div style="font-size:3rem; margin-bottom:14px;">📢</div>
+    <h2 class="modal-title" style="text-align:center;">Sumate a nuestro canal</h2>
+    <p class="modal-sub" style="text-align:center; margin-bottom:24px;">
+      Para acceder a los packs, primero unite a nuestro canal de WhatsApp.
+      Ahí publicamos promos, novedades y nuevos packs.
+    </p>
+    <a class="btn-primary"
+       style="width:100%; justify-content:center; background:linear-gradient(135deg,#25d366,#128c7e);"
+       href="https://whatsapp.com/channel/0029VaxKnbcHwXbFyqkWmh1o"
+       target="_blank" rel="noopener noreferrer"
+       onclick="closeChannelModal()">
+      <svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true" style="margin-right:4px;">
+        <path fill="#fff" d="M16.001 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.26.6 4.46 1.73 6.4L3.2 28.8l6.55-1.71a12.74 12.74 0 0 0 6.25 1.6h.01c7.07 0 12.8-5.73 12.8-12.8 0-3.42-1.33-6.63-3.75-9.05A12.72 12.72 0 0 0 16.001 3.2zm0 23.36h-.01a10.6 10.6 0 0 1-5.4-1.48l-.39-.23-3.89 1.02 1.04-3.79-.25-.4a10.62 10.62 0 0 1-1.62-5.68c0-5.87 4.78-10.65 10.66-10.65 2.85 0 5.52 1.11 7.53 3.13a10.58 10.58 0 0 1 3.12 7.53c0 5.87-4.78 10.65-10.66 10.65zm5.84-7.97c-.32-.16-1.89-.93-2.18-1.04-.29-.11-.51-.16-.72.16-.21.32-.83 1.04-1.02 1.25-.19.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.74-.99-2.38-.26-.62-.53-.54-.72-.55-.19-.01-.4-.01-.61-.01-.21 0-.56.08-.85.4-.29.32-1.12 1.09-1.12 2.66 0 1.57 1.15 3.09 1.31 3.3.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.83.68.77.24 1.47.21 2.02.13.62-.09 1.89-.77 2.16-1.52.27-.75.27-1.39.19-1.52-.08-.13-.29-.21-.61-.37z"/>
+      </svg>
+      Unirme al canal
+    </a>
+  </div>
+</div>
+
+<!-- MODAL DE PEDIDO -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">✕</button>
+
+    <!-- Vista: formulario -->
+    <div id="modalForm">
+      <h2 class="modal-title">Confirmar pedido</h2>
+      <p class="modal-sub">Completá tus datos de entrega y adjuntá el comprobante.</p>
+      <div class="modal-pack-tag" id="modalPackTag">Pack seleccionado</div>
+
+      <!-- CBU de pago -->
+      <div class="alias-box">
+        <div>
+          <p class="alias-label">Transferí al CBU</p>
+          <p class="alias-value" id="aliasText">0000003100036581418208</p>
+        </div>
+        <button type="button" class="alias-copy" id="aliasBtn" onclick="copyAlias()">Copiar CBU</button>
+      </div>
+
+      <form onsubmit="submitOrder(event)">
+        <div class="form-grp">
+          <label class="form-lbl" for="inp-nombre">Nombre completo</label>
+          <input class="form-inp" id="inp-nombre" type="text" placeholder="Tu nombre" required />
+        </div>
+        <div class="form-grp">
+          <label class="form-lbl" for="inp-wa">WhatsApp (con código de área)</label>
+          <input class="form-inp" id="inp-wa" type="tel" placeholder="Ej: 11 2345-6789" required />
+        </div>
+        <div class="form-grp">
+          <label class="form-lbl" for="inp-dir">Dirección</label>
+          <input class="form-inp" id="inp-dir" type="text" placeholder="Calle y número" required />
+        </div>
+        <div class="form-row">
+          <div>
+            <label class="form-lbl" for="inp-loc">Localidad</label>
+            <input class="form-inp" id="inp-loc" type="text" placeholder="Localidad" required />
+          </div>
+          <div>
+            <label class="form-lbl" for="inp-cp">Código postal</label>
+            <input class="form-inp" id="inp-cp" type="text" placeholder="Ej: 1234" />
+          </div>
+        </div>
+        <div class="form-grp">
+          <label class="form-lbl">Comprobante de pago</label>
+          <label class="file-drop" id="fileDrop">
+            <input type="file" id="inp-file" accept="image/*,.pdf" onchange="handleFile(this)" />
+            <div id="fileDisplay">
+              <span class="file-drop-icon" aria-hidden="true">📎</span>
+              <p class="file-drop-text">Adjuntá el comprobante de transferencia</p>
+              <p class="file-drop-hint">Imagen o PDF · click para seleccionar</p>
+            </div>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModal()">Cancelar</button>
+          <button type="submit" class="btn-confirm">Enviar pedido 🚀</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Vista: éxito -->
+    <div class="modal-success" id="modalSuccess">
+      <div class="success-icon">🎉</div>
+      <h2 class="success-title">¡Pedido enviado!</h2>
+      <p class="success-desc">
+        Se abrió el chat de WhatsApp con tu pedido. Solo falta que <strong>adjuntés el comprobante</strong> de pago en ese chat para confirmar todo.
+      </p>
+      <div class="success-steps">
+        <div class="success-step">
+          <span class="success-step-num">1</span>
+          <span>Abrí el chat de WhatsApp que se inició</span>
+        </div>
+        <div class="success-step">
+          <span class="success-step-num">2</span>
+          <span>Adjuntá el comprobante de transferencia</span>
+        </div>
+        <div class="success-step">
+          <span class="success-step-num">3</span>
+          <span>¡Listo! Preparamos tu pack y coordinamos la entrega</span>
+        </div>
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center" onclick="closeModal()">Cerrar</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  /* Modal canal de WhatsApp — bloqueante: solo se cierra al tocar "Unirme" */
+  function openChannelModal() {
+    document.getElementById('channelOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeChannelModal() {
+    document.getElementById('channelOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  window.addEventListener('load', () => setTimeout(openChannelModal, 800));
+
+  /* Navbar scroll */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  /* Fade-in on scroll */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+  /* Stagger delays */
+  document.querySelectorAll('.pack-card').forEach((el, i)  => { el.style.transitionDelay = `${i * 0.08}s`; });
+  document.querySelectorAll('.trust-feat').forEach((el, i) => { el.style.transitionDelay = `${i * 0.07}s`; });
+  document.querySelectorAll('.step-card').forEach((el, i)  => { el.style.transitionDelay = `${i * 0.07}s`; });
+
+  /* Modal state */
+  let selPack = '', selPrice = '';
+
+  function openModal(packName, price) {
+    selPack = packName; selPrice = price;
+    document.getElementById('modalPackTag').textContent = `📦 ${packName} — ${price} ARS`;
+    document.getElementById('inp-nombre').value = '';
+    document.getElementById('inp-wa').value = '';
+    document.getElementById('inp-dir').value = '';
+    document.getElementById('inp-loc').value = '';
+    document.getElementById('inp-cp').value = '';
+    document.getElementById('inp-file').value = '';
+    document.getElementById('fileDisplay').innerHTML = `
+      <span class="file-drop-icon" aria-hidden="true">📎</span>
+      <p class="file-drop-text">Adjuntá el comprobante de transferencia</p>
+      <p class="file-drop-hint">Imagen o PDF · click para seleccionar</p>`;
+    document.getElementById('fileDrop').style.borderColor = '';
+    document.getElementById('modalForm').style.display = '';
+    document.getElementById('modalSuccess').classList.remove('show');
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  /* File input */
+  function handleFile(input) {
+    const file = input.files[0];
+    if (!file) return;
+    document.getElementById('fileDisplay').innerHTML = `
+      <span class="file-drop-icon" aria-hidden="true">✅</span>
+      <p class="file-drop-text" style="color:var(--green-light);font-weight:700;">${file.name}</p>
+      <p class="file-drop-hint">Click para cambiar</p>`;
+    document.getElementById('fileDrop').style.borderColor = 'var(--green)';
+  }
+
+  /* Copy alias */
+  function copyAlias() {
+    const alias = document.getElementById('aliasText').textContent.trim();
+    const btn = document.getElementById('aliasBtn');
+    navigator.clipboard.writeText(alias).then(() => {
+      btn.textContent = '¡Copiado!';
+      setTimeout(() => { btn.textContent = 'Copiar CBU'; }, 2000);
+    }).catch(() => {
+      btn.textContent = alias;
+    });
+  }
+
+  /* FormSubmit envía los pedidos por mail con el comprobante adjunto */
+  const ENDPOINT = 'https://formsubmit.co/Juamsebastian7153@gmail.com';
+  const WA_PEDIDOS = '5491124942367';
+
+  function buildWaPedidoUrl() {
+    const nombre = document.getElementById('inp-nombre').value.trim();
+    const wa     = document.getElementById('inp-wa').value.trim();
+    const dir    = document.getElementById('inp-dir').value.trim();
+    const loc    = document.getElementById('inp-loc').value.trim();
+    const cp     = document.getElementById('inp-cp').value.trim();
+    const msg =
+      `🛒 *NUEVO PEDIDO*\n\n` +
+      `📦 *Pack:* ${selPack}\n` +
+      `💰 *Precio:* ${selPrice} ARS\n\n` +
+      `👤 *Nombre:* ${nombre}\n` +
+      `📱 *WhatsApp:* ${wa}\n` +
+      `📍 *Dirección:* ${dir}\n` +
+      `🏙️ *Localidad:* ${loc}` +
+      (cp ? `\n📮 *CP:* ${cp}` : '') +
+      `\n\nYa transferí al CBU. Adjunto el comprobante en este chat.`;
+    return `https://wa.me/${WA_PEDIDOS}?text=${encodeURIComponent(msg)}`;
+  }
+
+  function showSuccess(waUrl) {
+    document.getElementById('modalForm').style.display = 'none';
+    const s = document.getElementById('modalSuccess');
+    s.innerHTML = `
+      <div class="success-icon">🎉</div>
+      <h2 class="success-title">¡Pedido enviado!</h2>
+      <p class="success-desc">Recibimos tu pedido por mail. Para confirmar más rápido, mandanos también el comprobante por WhatsApp.</p>
+      <a class="btn-primary" style="width:100%;justify-content:center;margin-bottom:10px;" href="${waUrl}" target="_blank" rel="noopener noreferrer">📱 Enviar por WhatsApp</a>
+      <button class="btn-cancel" style="width:100%" onclick="closeModal()">Cerrar</button>`;
+    s.classList.add('show');
+  }
+
+  function showError() {
+    const existing = document.getElementById('form-error');
+    if (existing) return;
+    const el = document.createElement('p');
+    el.id = 'form-error';
+    el.style.cssText = 'color:#f87171;font-size:0.82rem;text-align:center;margin-top:12px;';
+    el.textContent = 'Hubo un error al enviar. Intentá de nuevo o escribinos por WhatsApp.';
+    document.querySelector('#modalForm form').appendChild(el);
+  }
+
+  async function submitOrder(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-confirm');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    const fd = new FormData();
+    fd.append('_subject',  `Nuevo pedido — ${selPack} (${selPrice})`);
+    fd.append('_captcha',  'false');
+    fd.append('_template', 'table');
+    fd.append('Pack',         selPack);
+    fd.append('Precio',       selPrice);
+    fd.append('Nombre',       document.getElementById('inp-nombre').value.trim());
+    fd.append('WhatsApp',     document.getElementById('inp-wa').value.trim());
+    fd.append('Dirección',    document.getElementById('inp-dir').value.trim());
+    fd.append('Localidad',    document.getElementById('inp-loc').value.trim());
+    fd.append('Código postal', document.getElementById('inp-cp').value.trim());
+    const file = document.getElementById('inp-file').files[0];
+    if (file) fd.append('comprobante', file);
+
+    const waUrl = buildWaPedidoUrl();
+
+    try {
+      const res = await fetch(ENDPOINT, { method: 'POST', body: fd });
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      window.open(waUrl, '_blank', 'noopener');
+      showSuccess(waUrl);
+    } catch (err) {
+      console.error('submitOrder:', err);
+      btn.textContent = 'Enviar pedido 🚀';
+      btn.disabled = false;
+      showError();
+    }
+  }
+
+  /* FAQ accordion */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+</script>
+
+</body>
+</html>
