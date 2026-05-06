@@ -7,14 +7,31 @@ export const runtime = "nodejs";
 const MAX_FILE_SIZE = 8 * 1024 * 1024; // 8 MB
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "application/pdf"];
 
+// Rate limit: 5 pedidos por IP por minuto (protección por instancia)
+const ipLog = new Map<string, number[]>();
+const RL_MAX = 5;
+const RL_WINDOW = 60_000;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const hits = (ipLog.get(ip) ?? []).filter((t) => now - t < RL_WINDOW);
+  hits.push(now);
+  ipLog.set(ip, hits);
+  return hits.length > RL_MAX;
+}
+
 function parsePrice(input: string): number {
-  // "$4.000" → 4000  |  "$1.250,50" → 1250.5
   const cleaned = input.replace(/[^\d,.-]/g, "").replace(/\./g, "").replace(",", ".");
   const n = parseFloat(cleaned);
   return Number.isFinite(n) ? n : NaN;
 }
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json({ error: "Demasiados intentos. Esperá un momento." }, { status: 429 });
+  }
+
   try {
     const form = await req.formData();
     const pack = String(form.get("pack") ?? "").trim();
@@ -33,7 +50,7 @@ export async function POST(req: NextRequest) {
     if (!Number.isFinite(price) || price <= 0) {
       return NextResponse.json({ error: "Precio inválido" }, { status: 400 });
     }
-    if (!sala || !sala.startsWith("Sala")) {
+    if (!sala || !sala.startsWith("Sala") || sala.length > 100) {
       return NextResponse.json({ error: "Sala inválida" }, { status: 400 });
     }
     const waDigits = whatsapp.replace(/\D/g, "");
