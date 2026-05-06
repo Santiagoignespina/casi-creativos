@@ -1,5 +1,6 @@
 import { sql, type Pedido } from "@/lib/db";
 import PedidoRow from "./PedidoRow";
+import LogoutButton from "./LogoutButton";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -39,9 +40,12 @@ export default async function AdminPage({
     <main className="admin-shell">
       <div className="admin-header">
         <h1 className="admin-title">📦 Pedidos — Casi Creativos</h1>
-        <span style={{ color: "var(--text-2)", fontSize: "0.85rem" }}>
-          {totalPendientes[0].c} pendiente{totalPendientes[0].c === 1 ? "" : "s"}
-        </span>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <span style={{ color: "var(--text-2)", fontSize: "0.85rem" }}>
+            {totalPendientes[0].c} pendiente{totalPendientes[0].c === 1 ? "" : "s"}
+          </span>
+          <LogoutButton />
+        </div>
       </div>
 
       <div className="admin-tabs">
