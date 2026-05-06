@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { get } from "@vercel/blob";
 
 export const runtime = "nodejs";
 
@@ -10,18 +11,19 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "URL inválida" }, { status: 400 });
   }
 
-  const res = await fetch(url, {
-    headers: { authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}` },
+  const result = await get(url, {
+    access: "private",
+    token: process.env.BLOB_READ_WRITE_TOKEN,
   });
 
-  if (!res.ok) {
-    return NextResponse.json({ error: "No se pudo obtener el archivo" }, { status: res.status });
+  if (!result) {
+    return NextResponse.json({ error: "Archivo no encontrado" }, { status: 404 });
   }
 
-  return new NextResponse(res.body, {
+  return new NextResponse(result.stream as ReadableStream, {
     headers: {
-      "content-type": res.headers.get("content-type") ?? "application/octet-stream",
-      "content-disposition": res.headers.get("content-disposition") ?? "inline",
+      "content-type": result.blob.contentType || "application/octet-stream",
+      "cache-control": "no-store",
     },
   });
 }
