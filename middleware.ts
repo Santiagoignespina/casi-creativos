@@ -15,5 +15,6 @@ export const config = {
   matcher: [
     "/admin/:path*",
     "/api/pedidos/:id/acreditar",
+    "/api/admin/:path*",
   ],
 };

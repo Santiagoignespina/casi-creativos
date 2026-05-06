@@ -131,7 +131,7 @@ export default async function AdminPage({
                     <br />
                     <a
                       className="col-comp"
-                      href={p.comprobante_url}
+                      href={`/api/admin/blob?url=${encodeURIComponent(p.comprobante_url)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ fontSize: "0.78rem" }}

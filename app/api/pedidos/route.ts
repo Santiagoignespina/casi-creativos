@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     // Subir a Blob
     const safeName = file.name.replace(/[^\w.\-]/g, "_");
     const blob = await put(`comprobantes/${Date.now()}-${safeName}`, file, {
-      access: "public",
+      access: "private",
       addRandomSuffix: true,
       contentType: file.type,
     });
@@ -67,8 +67,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ ok: true, id: rows[0]?.id });
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
     console.error("[POST /api/pedidos]", err);
-    return NextResponse.json({ error: "Error interno", detail: msg }, { status: 500 });
+    return NextResponse.json({ error: "Error interno" }, { status: 500 });
   }
 }
