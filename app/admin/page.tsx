@@ -1,6 +1,7 @@
 import { sql, type Pedido } from "@/lib/db";
 import PedidoRow from "./PedidoRow";
 import LogoutButton from "./LogoutButton";
+import AdminPoller from "./AdminPoller";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -38,6 +39,7 @@ export default async function AdminPage({
 
   return (
     <main className="admin-shell">
+      <AdminPoller initialCount={totalPendientes[0].c} />
       <div className="admin-header">
         <h1 className="admin-title">📦 Pedidos — Casi Creativos</h1>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
