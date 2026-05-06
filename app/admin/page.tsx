@@ -107,7 +107,6 @@ export default async function AdminPage({
             <div>Sala</div>
             <div>Pack</div>
             <div>Precio</div>
-            <div>WhatsApp</div>
             <div>Estado</div>
             <div>Acción</div>
           </div>
@@ -123,9 +122,6 @@ export default async function AdminPage({
                 </span>
               </div>
               <div className="col-precio">{fmtPrecio(Number(p.price))}</div>
-              <div style={{ fontFamily: "ui-monospace, monospace", fontSize: "0.82rem" }}>
-                {p.whatsapp}
-              </div>
               <div>
                 <span className={`badge ${p.status}`}>{p.status}</span>
                 {p.comprobante_url && (

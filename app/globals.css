@@ -587,7 +587,7 @@ footer { padding: 40px 24px; border-top: 1px solid var(--border); text-align: ce
 }
 .admin-row {
   display: grid;
-  grid-template-columns: 130px 1fr 1.2fr 110px 140px 120px 200px;
+  grid-template-columns: 130px 1fr 1.2fr 110px 120px 200px;
   gap: 12px; padding: 14px 18px; align-items: center;
   border-bottom: 1px solid var(--border); font-size: 0.86rem;
 }
