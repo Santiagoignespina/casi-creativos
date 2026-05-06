@@ -18,7 +18,7 @@ export default async function AdminPage({
 
   let rows: Pedido[] = [];
   let totalPendientes: Array<{ c: number }> = [{ c: 0 }];
-  let dbError: string | null = null;
+  let dbError = false;
   try {
     rows = (filter === "todos"
       ? await sql/* sql */ `
@@ -31,7 +31,7 @@ export default async function AdminPage({
       select count(*)::int as c from casi_pedidos where status = 'pendiente'
     `) as Array<{ c: number }>;
   } catch (err) {
-    dbError = err instanceof Error ? err.message : String(err);
+    dbError = true;
     console.error("[AdminPage] DB error:", err);
   }
 
@@ -65,11 +65,8 @@ export default async function AdminPage({
       {dbError ? (
         <div className="admin-table">
           <div className="admin-empty">
-            <strong>⚠️ Base de datos no configurada</strong>
-            Configurá la variable <code>POSTGRES_URL</code> en Vercel (creando el recurso Postgres) y corré el SQL del schema.
-            <p style={{ marginTop: 12, fontSize: "0.72rem", color: "var(--text-3)" }}>
-              Detalle técnico: {dbError}
-            </p>
+            <strong>⚠️ Error al cargar pedidos</strong>
+            No se pudo conectar con la base de datos. Revisá los logs del proyecto en Vercel.
           </div>
         </div>
       ) : rows.length === 0 ? (

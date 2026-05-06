@@ -24,6 +24,10 @@ export async function GET(req: NextRequest) {
     headers: {
       "content-type": result.blob.contentType || "application/octet-stream",
       "cache-control": "no-store",
+      "x-content-type-options": "nosniff",
+      "content-security-policy": "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; sandbox",
+      "content-disposition": 'inline; filename="comprobante"',
+      "x-frame-options": "SAMEORIGIN",
     },
   });
 }

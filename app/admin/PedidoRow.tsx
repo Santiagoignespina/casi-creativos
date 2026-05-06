@@ -115,10 +115,10 @@ export default function PedidoRow({ p }: { p: Pedido }) {
       {showComp && blobSrc && (
         <div className="admin-comp-panel">
           {isPdf ? (
-            <iframe src={blobSrc} title="Comprobante" />
+            <iframe src={blobSrc} title="Comprobante" sandbox="" referrerPolicy="no-referrer" />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={blobSrc} alt="Comprobante" />
+            <img src={blobSrc} alt="Comprobante" referrerPolicy="no-referrer" />
           )}
         </div>
       )}
