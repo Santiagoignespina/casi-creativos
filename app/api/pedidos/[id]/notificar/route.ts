@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { sql, type Pedido } from "@/lib/db";
+import { sendCreditedNotification } from "@/lib/whatsapp";
 
 export const runtime = "nodejs";
 
@@ -20,19 +21,23 @@ export async function POST(
 
     const p = rows[0];
     if (!p) return NextResponse.json({ error: "No encontrado" }, { status: 404 });
-    if (p.status === "acreditado") {
-      return NextResponse.json({ error: "Ya estaba acreditado" }, { status: 409 });
+    if (p.status !== "acreditado") {
+      return NextResponse.json({ error: "El pedido no está acreditado aún" }, { status: 409 });
     }
 
+    await sendCreditedNotification({
+      whatsapp: p.whatsapp,
+      sala: p.sala,
+      cantidadFichas: p.cantidad_fichas,
+    });
+
     await sql/* sql */ `
-      update casi_pedidos
-      set status = 'acreditado', credited_at = now()
-      where id = ${id}
+      update casi_pedidos set whatsapp_notified_at = now() where id = ${id}
     `;
 
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[POST /api/pedidos/[id]/acreditar]", err);
+    console.error("[POST /api/pedidos/[id]/notificar]", err);
     return NextResponse.json({ error: "Error interno" }, { status: 500 });
   }
 }

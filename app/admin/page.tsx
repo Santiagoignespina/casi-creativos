@@ -1,30 +1,11 @@
 import { sql, type Pedido } from "@/lib/db";
-import PedidoActions from "./PedidoActions";
+import PedidoRow from "./PedidoRow";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 type Filter = "todos" | "pendiente" | "acreditado";
 
-function horaBA(iso: string | Date | null): string {
-  if (!iso) return "—";
-  const raw = iso instanceof Date ? iso.toISOString() : String(iso);
-  let s = raw.replace(" ", "T");
-  if (!s.includes("+") && !s.toUpperCase().includes("Z")) s += "Z";
-  const ms = Date.parse(s);
-  if (isNaN(ms)) return "—";
-  const ba = new Date(ms - 3 * 60 * 60 * 1000);
-  const dd = String(ba.getUTCDate()).padStart(2, "0");
-  const mm = String(ba.getUTCMonth() + 1).padStart(2, "0");
-  const h = ba.getUTCHours();
-  const m = String(ba.getUTCMinutes()).padStart(2, "0");
-  const ampm = h >= 12 ? "p. m." : "a. m.";
-  return `${dd}/${mm} ${h % 12 || 12}:${m} ${ampm}`;
-}
-
-function fmtPrecio(n: number): string {
-  return `$${n.toLocaleString("es-AR")}`;
-}
 
 export default async function AdminPage({
   searchParams,
@@ -111,42 +92,7 @@ export default async function AdminPage({
             <div>Acción</div>
           </div>
           {rows.map((p) => (
-            <div key={p.id} className="admin-row">
-              <div className="col-fecha">{horaBA(p.created_at)}</div>
-              <div className="col-sala">{p.sala}</div>
-              <div>
-                {p.pack_name}
-                <br />
-                <span style={{ color: "var(--text-3)", fontSize: "0.78rem" }}>
-                  {p.cantidad_fichas.toLocaleString("es-AR")} fichas
-                </span>
-              </div>
-              <div className="col-precio">{fmtPrecio(Number(p.price))}</div>
-              <div>
-                <span className={`badge ${p.status}`}>{p.status}</span>
-                {p.comprobante_url && (
-                  <>
-                    <br />
-                    <a
-                      className="col-comp"
-                      href={`/api/admin/blob?url=${encodeURIComponent(p.comprobante_url)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ fontSize: "0.78rem" }}
-                    >
-                      Ver comprobante
-                    </a>
-                  </>
-                )}
-              </div>
-              <div>
-                <PedidoActions
-                  id={p.id}
-                  status={p.status}
-                  notified={!!p.whatsapp_notified_at}
-                />
-              </div>
-            </div>
+            <PedidoRow key={p.id} p={p} />
           ))}
         </div>
       )}
