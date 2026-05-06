@@ -6,9 +6,10 @@ export const revalidate = 0;
 
 type Filter = "todos" | "pendiente" | "acreditado";
 
-function horaBA(iso: string | null): string {
+function horaBA(iso: string | Date | null): string {
   if (!iso) return "—";
-  let s = iso.replace(" ", "T");
+  const raw = iso instanceof Date ? iso.toISOString() : String(iso);
+  let s = raw.replace(" ", "T");
   if (!s.includes("+") && !s.toUpperCase().includes("Z")) s += "Z";
   const ms = Date.parse(s);
   if (isNaN(ms)) return "—";

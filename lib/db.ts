@@ -18,7 +18,7 @@ export const sql: NeonQueryFunction<false, false> = ((
 
 export type Pedido = {
   id: string;
-  created_at: string;
+  created_at: string | Date;
   pack_name: string;
   cantidad_fichas: number;
   price: number;
@@ -26,6 +26,6 @@ export type Pedido = {
   whatsapp: string;
   comprobante_url: string | null;
   status: "pendiente" | "acreditado";
-  credited_at: string | null;
-  whatsapp_notified_at: string | null;
+  credited_at: string | Date | null;
+  whatsapp_notified_at: string | Date | null;
 };
