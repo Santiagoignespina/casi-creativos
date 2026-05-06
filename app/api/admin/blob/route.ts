@@ -3,7 +3,7 @@ import { head } from "@vercel/blob";
 
 export const runtime = "nodejs";
 
-const BLOB_URL_RE = /^https:\/\/[a-z0-9-]+\.blob\.vercel-storage\.com\//;
+const BLOB_URL_RE = /^https:\/\/[^/]+\.vercel-storage\.com\//;
 
 export async function GET(req: NextRequest) {
   const url = req.nextUrl.searchParams.get("url");
