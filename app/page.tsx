@@ -62,9 +62,17 @@ export default function Page() {
   const [navScrolled, setNavScrolled] = useState(false);
   const [aliasCopied, setAliasCopied] = useState(false);
 
-  // Channel modal abre 800ms después de cargar
+  // Channel modal: se muestra una vez cada 3 días por browser
   useEffect(() => {
-    const t = setTimeout(() => setChannelOpen(true), 800);
+    const KEY = "cc_channel_shown";
+    const DAYS = 3;
+    const last = localStorage.getItem(KEY);
+    const shouldShow = !last || Date.now() - Number(last) > DAYS * 86_400_000;
+    if (!shouldShow) return;
+    const t = setTimeout(() => {
+      setChannelOpen(true);
+      localStorage.setItem(KEY, String(Date.now()));
+    }, 800);
     return () => clearTimeout(t);
   }, []);
 
