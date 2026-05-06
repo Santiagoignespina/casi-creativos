@@ -50,6 +50,7 @@ export default async function AdminPage({
     `) as Array<{ c: number }>;
   } catch (err) {
     dbError = err instanceof Error ? err.message : String(err);
+    console.error("[AdminPage] DB error:", err);
   }
 
   return (
