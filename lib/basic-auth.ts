@@ -5,10 +5,6 @@
 export function checkBasicAuth(authHeader: string | null): boolean {
   if (!authHeader || !authHeader.startsWith("Basic ")) return false;
 
-  const expectedUser = process.env.ADMIN_USERNAME ?? "";
-  const expectedPass = process.env.ADMIN_PASSWORD ?? "";
-  if (!expectedUser || !expectedPass) return false;
-
   let decoded = "";
   try {
     decoded = atob(authHeader.slice(6).trim());
@@ -21,7 +17,14 @@ export function checkBasicAuth(authHeader: string | null): boolean {
   const user = decoded.slice(0, sep);
   const pass = decoded.slice(sep + 1);
 
-  return safeEqual(user, expectedUser) && safeEqual(pass, expectedPass);
+  const users = [
+    { u: process.env.ADMIN_USERNAME ?? "", p: process.env.ADMIN_PASSWORD ?? "" },
+    { u: process.env.EMPLOYEE_USERNAME ?? "", p: process.env.EMPLOYEE_PASSWORD ?? "" },
+  ];
+
+  return users.some(
+    ({ u, p }) => u && p && safeEqual(user, u) && safeEqual(pass, p)
+  );
 }
 
 function safeEqual(a: string, b: string): boolean {
