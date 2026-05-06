@@ -8,16 +8,27 @@ const INTERVAL = 30_000;
 function playBeep() {
   try {
     const ctx = new AudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(880, ctx.currentTime);
-    gain.gain.setValueAtTime(0.4, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.6);
+    const t = ctx.currentTime;
+
+    // Tres pitidos agudos y fuertes
+    const beeps = [
+      { freq: 1200, start: t },
+      { freq: 1400, start: t + 0.18 },
+      { freq: 1600, start: t + 0.36 },
+    ];
+
+    for (const b of beeps) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = "square";
+      osc.frequency.setValueAtTime(b.freq, b.start);
+      gain.gain.setValueAtTime(0.9, b.start);
+      gain.gain.exponentialRampToValueAtTime(0.001, b.start + 0.14);
+      osc.start(b.start);
+      osc.stop(b.start + 0.14);
+    }
   } catch {}
 }
 
