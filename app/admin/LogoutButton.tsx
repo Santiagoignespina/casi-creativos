@@ -1,12 +1,13 @@
 "use client";
 
 export default function LogoutButton() {
-  async function logout() {
-    // Manda credenciales inválidas para que el browser pise las cacheadas
-    await fetch("/admin", {
-      headers: { Authorization: "Basic " + btoa("_logout_:_logout_") },
-    }).catch(() => {});
-    // Recarga → el browser ya no tiene creds válidas → pide login
+  function logout() {
+    // XHR con credenciales inválidas es el método más confiable para limpiar Basic Auth
+    try {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "/admin", false, "logout", "logout");
+      xhr.send();
+    } catch {}
     location.replace("/admin");
   }
 
