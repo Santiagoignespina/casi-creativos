@@ -8,26 +8,28 @@ const INTERVAL = 30_000;
 function playBeep() {
   try {
     const ctx = new AudioContext();
+    const master = ctx.createGain();
+    master.gain.setValueAtTime(1.5, ctx.currentTime);
+    master.connect(ctx.destination);
     const t = ctx.currentTime;
 
-    // Tres pitidos agudos y fuertes
-    const beeps = [
-      { freq: 1200, start: t },
-      { freq: 1400, start: t + 0.18 },
-      { freq: 1600, start: t + 0.36 },
-    ];
+    // 5 pitidos cortos, agudos, onda cuadrada + sawtooth mezclados, volumen al límite
+    const beeps = [t, t + 0.15, t + 0.30, t + 0.45, t + 0.60];
 
-    for (const b of beeps) {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.type = "square";
-      osc.frequency.setValueAtTime(b.freq, b.start);
-      gain.gain.setValueAtTime(0.9, b.start);
-      gain.gain.exponentialRampToValueAtTime(0.001, b.start + 0.14);
-      osc.start(b.start);
-      osc.stop(b.start + 0.14);
+    for (const start of beeps) {
+      for (const type of ["square", "sawtooth"] as OscillatorType[]) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(master);
+        osc.type = type;
+        osc.frequency.setValueAtTime(1800, start);
+        osc.frequency.linearRampToValueAtTime(2200, start + 0.12);
+        gain.gain.setValueAtTime(1.0, start);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.13);
+        osc.start(start);
+        osc.stop(start + 0.13);
+      }
     }
   } catch {}
 }
