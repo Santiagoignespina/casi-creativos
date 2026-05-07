@@ -13,8 +13,12 @@ function playBeep() {
     master.connect(ctx.destination);
     const t = ctx.currentTime;
 
-    // 5 pitidos cortos, agudos, onda cuadrada + sawtooth mezclados, volumen al límite
-    const beeps = [t, t + 0.15, t + 0.30, t + 0.45, t + 0.60];
+    // 5 pitidos x 3 rondas, agudos, onda cuadrada + sawtooth mezclados, volumen al límite
+    const roundDuration = 0.75;
+    const beeps: number[] = [];
+    for (let r = 0; r < 3; r++) {
+      for (let i = 0; i < 5; i++) beeps.push(t + r * roundDuration + i * 0.15);
+    }
 
     for (const start of beeps) {
       for (const type of ["square", "sawtooth"] as OscillatorType[]) {
