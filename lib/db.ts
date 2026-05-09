@@ -24,6 +24,7 @@ export type Pedido = {
   price: number;
   sala: string;
   whatsapp: string;
+  descripcion: string | null;
   comprobante_url: string | null;
   status: "pendiente" | "acreditado";
   credited_at: string | Date | null;

@@ -84,6 +84,8 @@ body {
 /* ── HERO ──────────────────────────────────────── */
 .hero {
   min-height: 100vh;
+  /* iOS Safari 15.4+: usa el alto visible real (sin URL bar) en vez de incluirla. */
+  min-height: 100svh;
   display: flex; align-items: center; justify-content: center;
   padding: 110px 24px 90px;
   position: relative; overflow: hidden;
@@ -388,7 +390,13 @@ footer { padding: 40px 24px; border-top: 1px solid var(--border); text-align: ce
 .footer-copy { font-size: 0.78rem; color: var(--text-3); }
 
 /* ── WA FLOAT ──────────────────────────────────── */
-.wa-float { position: fixed; bottom: 26px; right: 26px; z-index: 150; text-decoration: none; }
+.wa-float {
+  position: fixed;
+  /* env(safe-area-inset-bottom) evita que el home indicator de iPhone tape el botón */
+  bottom: max(26px, env(safe-area-inset-bottom));
+  right: max(26px, env(safe-area-inset-right));
+  z-index: 150; text-decoration: none;
+}
 .wa-btn {
   width: 60px; height: 60px; border-radius: 50%; background: #25d366;
   display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
@@ -526,6 +534,7 @@ footer { padding: 40px 24px; border-top: 1px solid var(--border); text-align: ce
 @media (max-width: 640px) {
   section { padding: 64px 18px; }
   .hero   { padding: 92px 18px 56px; }
+  .hero-visual img { max-width: 220px; }
   .nav    { padding: 0 16px; height: 60px; }
   .nav-logo img { height: 36px; }
   .nav-cta { padding: 8px 16px; font-size: 0.78rem; }
@@ -566,7 +575,7 @@ footer { padding: 40px 24px; border-top: 1px solid var(--border); text-align: ce
 }
 
 /* ── ADMIN PANEL ──────────────────────────────── */
-.admin-shell { min-height: 100vh; padding: 32px 24px; max-width: 1280px; margin: 0 auto; }
+.admin-shell { min-height: 100vh; min-height: 100svh; padding: 32px 24px; max-width: 1280px; margin: 0 auto; }
 .admin-header {
   display: flex; align-items: center; justify-content: space-between;
   gap: 16px; flex-wrap: wrap; margin-bottom: 28px;

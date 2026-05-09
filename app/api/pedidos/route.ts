@@ -66,6 +66,7 @@ export async function POST(req: NextRequest) {
     const priceRaw = String(form.get("precio") ?? "").trim();
     const sala = String(form.get("sala") ?? "").trim();
     const whatsapp = String(form.get("whatsapp") ?? "").trim();
+    const descripcion = String(form.get("descripcion") ?? "").trim();
     const file = form.get("comprobante");
 
     // Validaciones
@@ -81,6 +82,9 @@ export async function POST(req: NextRequest) {
     }
     if (!sala || !sala.startsWith("Sala") || sala.length > 100) {
       return NextResponse.json({ error: "Sala inválida" }, { status: 400 });
+    }
+    if (descripcion.length > 500) {
+      return NextResponse.json({ error: "Descripción demasiado larga (máx 500)" }, { status: 400 });
     }
     const waDigits = whatsapp.replace(/\D/g, "");
     if (waDigits.length < 8 || waDigits.length > 15) {
@@ -112,8 +116,8 @@ export async function POST(req: NextRequest) {
 
     // Insertar en DB
     const rows = await sql/* sql */ `
-      insert into casi_pedidos (pack_name, cantidad_fichas, price, sala, whatsapp, comprobante_url, status)
-      values (${pack}, ${cantidad}, ${price}, ${sala}, ${whatsapp}, ${blob.url}, 'pendiente')
+      insert into casi_pedidos (pack_name, cantidad_fichas, price, sala, whatsapp, descripcion, comprobante_url, status)
+      values (${pack}, ${cantidad}, ${price}, ${sala}, ${whatsapp}, ${descripcion || null}, ${blob.url}, 'pendiente')
       returning id
     ` as Array<{ id: string }>;
 

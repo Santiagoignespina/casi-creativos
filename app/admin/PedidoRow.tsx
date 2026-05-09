@@ -77,6 +77,21 @@ export default function PedidoRow({ p }: { p: Pedido }) {
           <span style={{ color: "var(--text-3)", fontSize: "0.78rem" }}>
             {p.cantidad_fichas.toLocaleString("es-AR")} fichas
           </span>
+          {p.descripcion && (
+            <>
+              <br />
+              <span
+                style={{
+                  color: "var(--text-2)",
+                  fontSize: "0.78rem",
+                  fontStyle: "italic",
+                }}
+                title={p.descripcion}
+              >
+                💬 {p.descripcion}
+              </span>
+            </>
+          )}
         </div>
         <div className="col-precio">{fmtPrecio(Number(p.price))}</div>
         <div>

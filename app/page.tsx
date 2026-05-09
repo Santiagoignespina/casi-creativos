@@ -52,6 +52,7 @@ export default function Page() {
   const [customQty, setCustomQty] = useState("");
   const [salaInput, setSalaInput] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
+  const [descripcion, setDescripcion] = useState("");
   const [fileName, setFileName] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -66,12 +67,21 @@ export default function Page() {
   useEffect(() => {
     const KEY = "cc_channel_shown";
     const DAYS = 3;
-    const last = localStorage.getItem(KEY);
+    let last: string | null = null;
+    try {
+      last = localStorage.getItem(KEY);
+    } catch {
+      // iOS Safari (modo privado / ITP estricto) lanza SecurityError al tocar localStorage.
+    }
     const shouldShow = !last || Date.now() - Number(last) > DAYS * 86_400_000;
     if (!shouldShow) return;
     const t = setTimeout(() => {
       setChannelOpen(true);
-      localStorage.setItem(KEY, String(Date.now()));
+      try {
+        localStorage.setItem(KEY, String(Date.now()));
+      } catch {
+        // Si no podemos escribir, el modal vuelve a aparecer la próxima visita.
+      }
     }, 800);
     return () => clearTimeout(t);
   }, []);
@@ -109,6 +119,7 @@ export default function Page() {
     setCustomQty("");
     setSalaInput("");
     setWhatsapp("");
+    setDescripcion("");
     setFileName("");
     if (fileInputRef.current) fileInputRef.current.value = "";
     setSuccess(false);
@@ -149,14 +160,53 @@ export default function Page() {
   }
 
   function buildSala(): string {
-    return salaInput.trim() ? `Sala${salaInput.trim()}` : "";
+    return salaInput.trim() ? `Sala(${salaInput.trim()})` : "";
   }
 
+  // CBU según monto: < 100k fichas → Juan Sebastian Garay, ≥ 100k → Kimberly
+  const cbuData =
+    cantidad < 100_000
+      ? {
+          cbu: "0000003100077097102630",
+          holder: "A nombre de Juan Sebastian Garay",
+        }
+      : {
+          cbu: "0000003100036581418208",
+          holder: "A nombre de Kimberly Julissa Marroquin Licardi",
+        };
+
   function copyAlias() {
-    navigator.clipboard.writeText("0000003100036581418208").then(() => {
+    const text = cbuData.cbu;
+    const flagCopied = () => {
       setAliasCopied(true);
       setTimeout(() => setAliasCopied(false), 2000);
-    });
+    };
+    // Fallback con textarea+execCommand: cubre iOS viejos, WhatsApp in-app browser
+    // y casos donde navigator.clipboard rechaza por permisos/foco.
+    const legacyCopy = () => {
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.top = "0";
+        ta.style.left = "0";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        flagCopied();
+      } catch {
+        // sin feedback si todo falla; el CBU sigue visible para copiar a mano
+      }
+    };
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(flagCopied).catch(legacyCopy);
+    } else {
+      legacyCopy();
+    }
   }
 
   function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -194,6 +244,7 @@ export default function Page() {
     fd.append("precio", price);
     fd.append("sala", buildSala());
     fd.append("whatsapp", whatsapp.trim());
+    fd.append("descripcion", descripcion.trim());
     fd.append("comprobante", file);
 
     try {
@@ -566,8 +617,8 @@ export default function Page() {
               <div className="alias-box">
                 <div>
                   <p className="alias-label">Transferí al CBU</p>
-                  <p className="alias-value">0000003100036581418208</p>
-                  <p className="alias-holder">A nombre de Kimberly Julissa Marroquin Licardi</p>
+                  <p className="alias-value">{cbuData.cbu}</p>
+                  <p className="alias-holder">{cbuData.holder}</p>
                 </div>
                 <button type="button" className="alias-copy" onClick={copyAlias}>
                   {aliasCopied ? "¡Copiado!" : "Copiar CBU"}
@@ -604,7 +655,7 @@ export default function Page() {
                     className="form-inp"
                     id="inp-sala"
                     type="text"
-                    placeholder="Ej: Victor (se enviará como SalaVictor)"
+                    placeholder="Ej: Victor (se enviará como Sala(Victor))"
                     value={salaInput}
                     onChange={(e) => setSalaInput(e.target.value)}
                     required
@@ -626,6 +677,21 @@ export default function Page() {
                   <p className="form-hint">
                     Te avisamos por acá cuando se acrediten tus fichas.
                   </p>
+                </div>
+                <div className="form-grp">
+                  <label className="form-lbl" htmlFor="inp-desc">
+                    ¿Necesitás algo más? <span style={{ color: "var(--text-3)", fontWeight: 400 }}>(opcional)</span>
+                  </label>
+                  <textarea
+                    className="form-inp"
+                    id="inp-desc"
+                    rows={3}
+                    maxLength={500}
+                    placeholder="Ej: usuario / mesa / observaciones para el pedido"
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
+                    style={{ resize: "vertical", fontFamily: "inherit" }}
+                  />
                 </div>
                 <div className="form-grp">
                   <label className="form-lbl">Comprobante de pago</label>

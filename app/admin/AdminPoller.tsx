@@ -5,15 +5,13 @@ import { useRouter } from "next/navigation";
 
 const INTERVAL = 30_000;
 
-function playBeep() {
+function playBeep(ctx: AudioContext) {
   try {
-    const ctx = new AudioContext();
     const master = ctx.createGain();
     master.gain.setValueAtTime(1.5, ctx.currentTime);
     master.connect(ctx.destination);
     const t = ctx.currentTime;
 
-    // 5 pitidos x 3 rondas, agudos, onda cuadrada + sawtooth mezclados, volumen al límite
     const roundDuration = 0.75;
     const beeps: number[] = [];
     for (let r = 0; r < 3; r++) {
@@ -41,8 +39,26 @@ function playBeep() {
 export default function AdminPoller({ initialCount }: { initialCount: number }) {
   const router = useRouter();
   const lastCount = useRef(initialCount);
+  const audioCtx = useRef<AudioContext | null>(null);
 
   useEffect(() => {
+    // iOS Safari (no PWA) no expone la Notification API. Tocarla tira ReferenceError
+    // que escala al error boundary y muestra "Error de aplicación".
+    const hasNotifications = typeof window !== "undefined" && "Notification" in window;
+
+    // Crear el AudioContext en el primer click del usuario para que el navegador lo permita.
+    // iOS Safari < 14.5 solo expone webkitAudioContext.
+    function unlockAudio() {
+      if (audioCtx.current) return;
+      try {
+        const Ctx =
+          window.AudioContext ||
+          (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+        if (Ctx) audioCtx.current = new Ctx();
+      } catch {}
+    }
+    document.addEventListener("click", unlockAudio, { once: true });
+
     async function check() {
       try {
         const res = await fetch("/api/admin/pending-count", { cache: "no-store" });
@@ -50,12 +66,20 @@ export default function AdminPoller({ initialCount }: { initialCount: number }) 
         const { count } = await res.json();
         if (count > lastCount.current) {
           const diff = count - lastCount.current;
-          playBeep();
-          if (Notification.permission === "granted") {
-            new Notification("Casi Creativos — Nuevo pedido", {
-              body: `Entraron ${diff} pedido${diff > 1 ? "s" : ""} nuevo${diff > 1 ? "s" : ""}.`,
-              icon: "/logo.png",
-            });
+          if (audioCtx.current) {
+            // Reanudar el contexto si el navegador lo suspendió (ej: pestaña en segundo plano)
+            if (audioCtx.current.state === "suspended") {
+              await audioCtx.current.resume();
+            }
+            playBeep(audioCtx.current);
+          }
+          if (hasNotifications && Notification.permission === "granted") {
+            try {
+              new Notification("Casi Creativos — Nuevo pedido", {
+                body: `Entraron ${diff} pedido${diff > 1 ? "s" : ""} nuevo${diff > 1 ? "s" : ""}.`,
+                icon: "/logo.png",
+              });
+            } catch {}
           }
           router.refresh();
         }
@@ -63,12 +87,17 @@ export default function AdminPoller({ initialCount }: { initialCount: number }) 
       } catch {}
     }
 
-    if (Notification.permission === "default") {
-      Notification.requestPermission();
+    if (hasNotifications && Notification.permission === "default") {
+      try {
+        Notification.requestPermission();
+      } catch {}
     }
 
     const id = setInterval(check, INTERVAL);
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      document.removeEventListener("click", unlockAudio);
+    };
   }, [router]);
 
   return null;
