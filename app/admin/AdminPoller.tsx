@@ -40,6 +40,7 @@ export default function AdminPoller({ initialCount }: { initialCount: number }) 
   const router = useRouter();
   const lastCount = useRef(initialCount);
   const audioCtx = useRef<AudioContext | null>(null);
+  const intervalId = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     // iOS Safari (no PWA) no expone la Notification API. Tocarla tira ReferenceError
@@ -87,15 +88,37 @@ export default function AdminPoller({ initialCount }: { initialCount: number }) 
       } catch {}
     }
 
+    function startPolling() {
+      if (intervalId.current !== null) return;
+      check();
+      intervalId.current = setInterval(check, INTERVAL);
+    }
+
+    function stopPolling() {
+      if (intervalId.current === null) return;
+      clearInterval(intervalId.current);
+      intervalId.current = null;
+    }
+
+    // Pausar el polling cuando la pestaña no está visible — evita pegar a Neon
+    // 24/7 mientras el admin queda abierto en background y agotar el free tier.
+    function handleVisibility() {
+      if (document.visibilityState === "visible") startPolling();
+      else stopPolling();
+    }
+    document.addEventListener("visibilitychange", handleVisibility);
+
     if (hasNotifications && Notification.permission === "default") {
       try {
         Notification.requestPermission();
       } catch {}
     }
 
-    const id = setInterval(check, INTERVAL);
+    if (document.visibilityState === "visible") startPolling();
+
     return () => {
-      clearInterval(id);
+      stopPolling();
+      document.removeEventListener("visibilitychange", handleVisibility);
       document.removeEventListener("click", unlockAudio);
     };
   }, [router]);
